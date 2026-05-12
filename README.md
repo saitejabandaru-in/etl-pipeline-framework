@@ -81,7 +81,7 @@ Designed for **scalable, reliable, and auditable data workflows**.
 
 ## 🧬 System Workflow
 
-
+```text
 Data Sources (CSV / API / DB / Stream)
 ↓
 Extraction Layer
@@ -94,15 +94,13 @@ Load to Targets
 (Warehouse / Data Lake)
 ↓
 Monitoring & Alerting Layer
-
-```id="etlflow1"
+```
 
 ---
 
 ## 🗂️ Project Structure
 
-```
-
+```text
 extractors/
 ├── csv_extractor.py
 ├── api_extractor.py
@@ -122,12 +120,24 @@ quality/
 ├── checks.py
 └── lineage.py
 
+etl/
+├── config.py
+├── metrics.py
+├── pipeline.py
+└── run.py
+
 orchestration/
 └── dag_definition.py
 
-tests/
+data/
+└── sample_orders.csv
 
-````id="etlstruct1"
+pipeline_config.yaml
+Dockerfile
+requirements.txt
+tests/
+└── test_pipeline.py
+```
 
 ---
 
@@ -135,8 +145,10 @@ tests/
 
 ### Install dependencies
 ```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-````
+```
 
 ### Run ETL pipeline
 

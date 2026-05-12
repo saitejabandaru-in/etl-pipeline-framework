@@ -1,0 +1,33 @@
+pipeline:
+  name: sample_orders_pipeline
+  source:
+    type: csv
+    path: data/sample_orders.csv
+  transforms:
+    - type: clean
+      drop_duplicates: true
+      fill_missing:
+        status: unknown
+    - type: normalize
+      columns:
+        customer_name: title
+        status: lower
+    - type: aggregate
+      group_by:
+        - region
+      metrics:
+        order_id: count
+        revenue: sum
+  quality:
+    required_columns:
+      - region
+      - order_id
+      - revenue
+    non_null:
+      - region
+      - order_id
+    min_values:
+      revenue: 0
+  target:
+    type: lake
+    path: output/region_revenue.csv
